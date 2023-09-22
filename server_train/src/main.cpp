@@ -1,5 +1,7 @@
 #include <Arduino.h>
 #include <TrainController.hpp>
+// 7segment
+#include <SevenSegmentLEDDriver.hpp>
 
 /////////////////////////　グローバル変数の宣言　/////////////////////////
 
@@ -15,11 +17,15 @@ uint8_t velocity = 0; // 0 ~ 255で速度
 bool direction = 0; // 1:前進
 bool LED_status = 0; // 1:LEDを点灯
 
+// 7segment
+SevenSegmentLEDDriver SevenSegDriver;
+
 ///////////////////////// ここまで ///////////////////////
 
 void setup() {
     ///////////////////////////　Bluetoothをつなぐ前に一度だけ行う処理を書く(編集可) //////////////////////////////////
-
+    // 7Segment
+    SevenSegDriver.init();
     Serial.begin(115200);
     pinMode(VOLUME, INPUT);
     pinMode(LED_pin,INPUT);
@@ -86,6 +92,8 @@ void loop() {
             {
               velocity=255;
             }
+            // 7segment
+            SevenSegDriver.ShowDigits((uint8_t)velocity*9/255);
             Serial.printf("v : %d, dir : %d, LED : %d\n", velocity, direction, LED_status);
             sendData(velocity,direction,LED_status);
             ///////////////////////////  ここまで  //////////////////////////////
