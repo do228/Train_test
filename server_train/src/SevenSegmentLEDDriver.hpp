@@ -31,9 +31,15 @@ public:
     }
 
     void ShowDigits(uint8_t number) {
-        digitalWrite(latch, LOW);
-        SPI.transfer(digits[number]);
-        digitalWrite(latch, HIGH);
+        try
+        {
+            digitalWrite(latch, LOW);
+            SPI.transfer(digits[number]);
+            digitalWrite(latch, HIGH);
+        }
+        catch(const std::exception& e)
+        {
+        }
     }
 
     void ShowSegment(byte segment) {

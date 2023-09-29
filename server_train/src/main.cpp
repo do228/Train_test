@@ -8,6 +8,12 @@
 #define DEVICE_NAME "server1" // ここでサーバーの名前を決める。
 BLEUUID SERVICE_UUID("3fd19879-3490-470c-b26d-28dce8c1dd83"); // サービスのUUIDを指定。
 BLEUUID CHARACTERISTIC_UUID("5da663e5-1dd1-4080-930f-915988c9a282"); // キャラクタリスティックのUUIDを指定。
+//2機 3842a4a8-c709-457f-941f-df937f30fc6c
+//2機 9faf8474-2648-4935-b05c-f7e0356e9035
+//3機 0789b10d-cd5c-49f6-8583-7857f06fe548
+//3機 9c78e978-5856-46ee-b48b-231662dd27d8
+//4機 a22c7f7d-1de6-4649-9f5a-548b944b4ca3
+//4機 f4d2cd27-988d-4ed7-8f5c-ca8a4d214eb1
 
 #define LED_pin 6
 #define direction_pin 5
