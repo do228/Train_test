@@ -21,7 +21,8 @@ private:
     };
 
 public:
-    void init() {
+    void init()
+    {
         pinMode(latch, OUTPUT);
         pinMode(sck, OUTPUT);
         pinMode(sdi, OUTPUT);
@@ -30,19 +31,21 @@ public:
         SPI.setDataMode(0);
     }
 
-    void ShowDigits(uint8_t number) {
+    void ShowDigits(uint8_t number)
+    {
         try
         {
             digitalWrite(latch, LOW);
             SPI.transfer(digits[number]);
             digitalWrite(latch, HIGH);
         }
-        catch(const std::exception& e)
+        catch (const std::exception &e)
         {
         }
     }
 
-    void ShowSegment(byte segment) {
+    void ShowSegment(byte segment)
+    {
         digitalWrite(latch, LOW);
         SPI.transfer((byte)segment);
         digitalWrite(latch, HIGH);
