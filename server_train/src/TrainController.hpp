@@ -52,7 +52,13 @@ void doPrepare(BLEService *pService, BLEUUID characteristic_uuid__)
     pCharacteristic->addDescriptor(new BLE2902());
 }
 
-/// @brief BLEの初期化setup関数内部で呼ぶこと。
+/**
+ * @brief BLEの初期化を行う
+ *
+ * @param device_name_ デバイスの名前
+ * @param service_uuid_ サーバーのUUID
+ * @param characteristic_uuid_ キャラクタリスティックのUUID
+ */
 void doInitialize(std::string device_name_, BLEUUID service_uuid_, BLEUUID characteristic_uuid_, float interval_time_ = 1)
 {
     BLEDevice::init(device_name_);
@@ -74,7 +80,13 @@ void doInitialize(std::string device_name_, BLEUUID service_uuid_, BLEUUID chara
     ticker.attach(interval_time_, kickRoutine);
 }
 
-/*  主処理ロジック  */
+/**
+ * @brief 送信するデータを設定する
+ *
+ * @param velocity_ 速度
+ * @param direction_ 方向
+ * @param LED_status_ LEDの状態
+ */
 void sendData(uint8_t velocity_, bool direction_, bool LED_status_)
 {
     // 構造体に値を設定して送信する

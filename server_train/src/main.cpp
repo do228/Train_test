@@ -15,9 +15,9 @@ BLEUUID CHARACTERISTIC_UUID("5da663e5-1dd1-4080-930f-915988c9a282"); // キャ�
 // 4機 a22c7f7d-1de6-4649-9f5a-548b944b4ca3
 // 4機 f4d2cd27-988d-4ed7-8f5c-ca8a4d214eb1
 
-#define LED_pin 6
-#define direction_pin 5
-#define VOLUME 3
+#define LED_pin 6       // LEDの接続PIN
+#define direction_pin 5 // 方向切り替えスイッチの接続PIN
+#define VOLUME 3        // ボリュームの接続PIN
 
 uint8_t velocity = 0; // 0 ~ 255で速度
 bool direction = 0;   // 1:前進
@@ -32,27 +32,26 @@ void setup()
 {
   ///////////////////////////　Bluetoothをつなぐ前に一度だけ行う処理を書く(編集可) //////////////////////////////////
   // 7Segment
-  SevenSegDriver.init();
-  Serial.begin(115200);
-  pinMode(VOLUME, INPUT);
-  pinMode(LED_pin, INPUT);
-  pinMode(direction_pin, INPUT);
+  SevenSegDriver.init();         // 7segmentの初期化
+  Serial.begin(115200);          // シリアル通信の開始
+  pinMode(VOLUME, INPUT);        // ボリュームの接続PINを入力に設定
+  pinMode(LED_pin, INPUT);       // LEDの接続PINを入力に設定
+  pinMode(direction_pin, INPUT); // 方向切り替えスイッチの接続PINを入力に設定
 
   ////////////////////////////　ここまで　////////////////////////////////////
 
-  doInitialize(DEVICE_NAME, SERVICE_UUID, CHARACTERISTIC_UUID);
+  doInitialize(DEVICE_NAME, SERVICE_UUID, CHARACTERISTIC_UUID); // BLEの初期化
   //////////////////////  Blutooth接続中に一度だけ行う処理(編集可) ////////////////////////////
-  Serial.println("connecting to client");
+  Serial.println("connecting to client"); // シリアル通信でconnecting to clientと表示
 
   //////////////////////　ここまで //////////////////////////////
 }
 
 void loop()
 {
-
-  if (device_connected && !abnormal)
+  if (device_connected && !abnormal) // 接続されているかつ異常がないか
   {
-    if (bReadyTicker)
+    if (bReadyTicker) // タイマーが準備できているか
     {
       ///////////////////////////　ここから繰り返し行う処理を書く(編集可)　//////////////////////////////
 
@@ -104,15 +103,15 @@ void loop()
         }
       }
 
-      velocity = analogRead(VOLUME) * 255 / 4095;
-      if (velocity >= 256)
+      velocity = analogRead(VOLUME) * 255 / 4095; // ボリュームの値を読み取る
+      if (velocity >= 256)                        // 256以上なら
       {
-        velocity = 255;
+        velocity = 255; // 255にする
       }
       // 7segment
-      SevenSegDriver.ShowDigits((uint8_t)velocity * 9 / 255);
-      Serial.printf("v : %d, dir : %d, LED : %d\n", velocity, direction, LED_status);
-      sendData(velocity, direction, LED_status);
+      SevenSegDriver.ShowDigits((uint8_t)velocity * 9 / 255);                         // 7segmentに速度を表示
+      Serial.printf("v : %d, dir : %d, LED : %d\n", velocity, direction, LED_status); // 速度、方向、LEDの状態を表示
+      sendData(velocity, direction, LED_status);                                      // 速度、方向、LEDの状態を送信
       ///////////////////////////  ここまで  //////////////////////////////
     }
   }
